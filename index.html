@@ -1,21 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta name="google-site-verification" content="UrfcZWW0IEVMnna5NHPThwzphu1AYshYPR8z-lVGTMQ" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المنصة الهندسية المتكاملة | حساب الكميات</title>
     
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "المنصة الهندسية المتكاملة",
-      "url": "https://eng-calculators-ha.netlify.app/"
-    }
-    </script>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231e40af'/><path d='M20 70 L50 30 L80 70 Z' fill='%23fbbf24'/></svg>">
-
     <style>
         :root {
             --primary: #1e40af;
@@ -33,7 +22,6 @@
             line-height: 1.6;
         }
 
-        /* الهيدر */
         header {
             background: var(--secondary); color: white;
             padding: 40px 20px 80px; text-align: center;
@@ -43,7 +31,6 @@
             max-width: 900px; margin: -50px auto 40px; padding: 0 15px;
         }
 
-        /* بطاقة الحاسبة */
         .card {
             background: var(--white); border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -56,60 +43,155 @@
             margin-top: 0; border-right: 4px solid var(--accent); padding-right: 10px;
         }
 
-        /* حل مشكلة الرؤية وتغطية الألوان */
-        .input-group {
-            margin-bottom: 20px;
-        }
+        .input-group { margin-bottom: 20px; }
 
-        label {
-            display: block; font-weight: 700; margin-bottom: 8px; color: var(--secondary);
-        }
+        label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--secondary); }
 
         input, select {
-            width: 100%; padding: 15px; border: 2px solid var(--border);
+            width: 100%; padding: 12px; border: 2px solid var(--border);
             border-radius: 10px; font-size: 1rem; box-sizing: border-box;
-            background-color: var(--white); color: var(--secondary);
-            transition: border-color 0.3s ease;
-        }
-
-        input:focus, select:focus {
-            border-color: var(--primary); outline: none;
         }
 
         .btn-calc {
-            width: 100%; padding: 18px; background: var(--primary);
+            width: 100%; padding: 15px; background: var(--primary);
             color: white; border: none; border-radius: 10px;
-            font-size: 1.2rem; font-weight: 800; cursor: pointer;
-            transition: 0.3s;
+            font-size: 1.1rem; font-weight: 800; cursor: pointer;
+            transition: 0.3s; margin-top: 10px;
         }
 
-        .btn-calc:hover { background: #152b75; transform: translateY(-2px); }
+        .btn-calc:hover { background: #152b75; }
 
-        /* منطقة النتائج */
         .results-box {
-            display: none; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            display: none; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 15px; margin-top: 25px; background: #eff6ff;
             padding: 20px; border-radius: 12px; border: 1px dashed var(--primary);
         }
 
-        .res-item { text-align: center; }
-        .res-item b { display: block; font-size: 1.4rem; color: var(--primary); }
-        .res-item span { font-size: 0.85rem; font-weight: 600; color: #64748b; }
-
-        /* الأقسام الإضافية */
-        .info-section {
-            background: var(--white); padding: 25px; border-radius: 16px;
-            margin-bottom: 25px; border: 1px solid var(--border);
-        }
+        .res-item { text-align: center; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .res-item span { display: block; font-size: 1.3rem; color: var(--primary); font-weight: bold; }
+        .res-item small { font-size: 0.8rem; color: #64748b; }
 
         .source-box {
             background: #fffbeb; border-right: 5px solid var(--accent);
-            padding: 15px; margin-top: 15px; font-size: 0.9rem;
+            padding: 15px; margin-top: 15px; font-size: 0.9rem; border-radius: 4px;
         }
 
         footer { text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem; }
 
-        /* تجاوب الشاشات */
+        @media (min-width: 768px) {
+            .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🏗️ المنصة الهندسية المتكاملة</h1>
+    <p>دقة في الحساب.. شفافية في المصدر</p>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2>📦 حاسبة كميات صب السقف</h2>
+        <div class="grid-3">
+            <div class="input-group">
+                <label>مساحة السقف (م²)</label>
+                <input type="number" id="c_area" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label>نوع السقف</label>
+                <select id="c_type">
+                    <option value="solid">بلاطة عادية (Solid)</option>
+                    <option value="flat">بلاطة هوردي (Flat)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>السمك (سم)</label>
+                <input type="number" id="c_thick" placeholder="مثلاً: 15">
+            </div>
+        </div>
+        <button class="btn-calc" onclick="calcConcrete()">احسب الكميات الإنشائية</button>
+        
+        <div class="results-box" id="c_results">
+            <div class="res-item"><span id="r_vol">0</span><small>خرسانة (م³)</small></div>
+            <div class="res-item"><span id="r_steel">0</span><small>حديد (طن)</small></div>
+            <div class="res-item"><span id="r_cem">0</span><small>أسمنت (كيس)</small></div>
+            <div class="res-item"><span id="r_sand">0</span><small>بطحاء (م³)</small></div>
+            <div class="res-item"><span id="r_grav">0</span><small>كري (م³)</small></div>
+            <div class="res-item"><span id="r_water">0</span><small>ماء (لتر)</small></div>
+        </div>
+        
+        <div class="source-box" id="c_source" style="display:none">
+            <strong>💡 ملاحظة فنية:</strong> تم احتساب نسبة الحديد بناءً على متوسط استهلاك المتر المكعب (90-130 كجم) مع إضافة هامش هالك بسيط.
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🧱 حاسبة طوب المباني</h2>
+        <div class="grid-3">
+            <div class="input-group">
+                <label>إجمالي طول الجدران (م)</label>
+                <input type="number" id="b_len" placeholder="0.00">
+            </div>
+            <div class="input-group" style="grid-column: span 2;">
+                <label>ارتفاع الجدار (م)</label>
+                <input type="number" id="b_high" placeholder="مثلاً: 3">
+            </div>
+        </div>
+        <button class="btn-calc" onclick="calcBricks()">احسب عدد الطوب</button>
+        <div class="results-box" id="b_results">
+            <div class="res-item"><span id="r_bricks">0</span><small>طوبة (20x40)</small></div>
+            <div class="res-item"><span id="r_b_cem">0</span><small>أسمنت مونة (كيس)</small></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 المنصة الهندسية المتكاملة | جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+    function calcConcrete() {
+        const a = parseFloat(document.getElementById('c_area').value);
+        const t = parseFloat(document.getElementById('c_thick').value) / 100;
+        const ty = document.getElementById('c_type').value;
+
+        if(!a || !t) return alert("يرجى إكمال البيانات أولاً");
+
+        let vol = a * t;
+        // نسبة الحديد: Solid = 100kg/m3, Flat = 135kg/m3 (تقريب هندسي آمن)
+        let steel = vol * (ty === 'solid' ? 100 : 135) / 1000;
+        let cem = vol * 7;
+        let sand = vol * 0.4;
+        let grav = vol * 0.8;
+
+        document.getElementById('c_results').style.display = 'grid';
+        document.getElementById('c_source').style.display = 'block';
+        
+        document.getElementById('r_vol').textContent = vol.toFixed(2);
+        document.getElementById('r_steel').textContent = steel.toFixed(3);
+        document.getElementById('r_cem').textContent = Math.ceil(cem);
+        document.getElementById('r_sand').textContent = sand.toFixed(2);
+        document.getElementById('r_grav').textContent = grav.toFixed(2);
+        document.getElementById('r_water').textContent = Math.round(vol * 175);
+    }
+
+    function calcBricks() {
+        const l = parseFloat(document.getElementById('b_len').value);
+        const h = parseFloat(document.getElementById('b_high').value);
+        if(!l || !h) return alert("يرجى إكمال البيانات");
+
+        let area = l * h;
+        let count = area * 12.5; // للمتر المربع الواحد
+        
+        document.getElementById('b_results').style.display = 'grid';
+        document.getElementById('r_bricks').textContent = Math.ceil(count);
+        document.getElementById('r_b_cem').textContent = Math.ceil((count/1000) * 12); // زيادة طفيفة للمونة
+    }
+</script>
+
+</body>
+</html>
         @media (min-width: 768px) {
             .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
         }
